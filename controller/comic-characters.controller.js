@@ -31,11 +31,26 @@ function create (req, res, next) {
 
 function update (req, res, next) {
   const id = req.params.id
-  const result = model.update(id)
+  const body = req.body
+  const result = model.update(id, body)
 
-  
+  if(result.errors){
+    next({ status: 404, message: `Could not find character`, errors: result.errors })
+  }else{
+    res.status(200).json({ character: result })
+  }
 }
 
-function destroy (req, res, next) {}
+function destroy (req, res, next) {
+  console.log('launch');
+  const id = req.params.id
+  const result = model.destroy(id)
+
+  if(result.errors){
+    next({ status: 404, message: `Could not find character`, errors: result.errors })
+  }else{
+    res.status(200).json({ remainingCharacters: result })
+  }
+}
 
 module.exports = {getAll, getOne, create, update, destroy}
