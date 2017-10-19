@@ -9,7 +9,7 @@ app.disable('powered-by-x')
 app.use(bodyParser.json())
 if(process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 
-const characterRoutes = require('/routes/comic-characters.router')
+const characterRoutes = require('./routes/comic-characters.router')
 app.use('/characters', characterRoutes)
 
 app.use((err, req, res, next) => {
